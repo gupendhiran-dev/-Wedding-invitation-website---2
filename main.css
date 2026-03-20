@@ -1,0 +1,303 @@
+/* =============================================
+   WEDDING INVITE — MAIN CSS
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@300;400;500&display=swap');
+
+:root {
+  --cream: #fdf8f0;
+  --ivory: #f5ede0;
+  --champagne: #e8d5b7;
+  --gold: #c9a96e;
+  --gold-light: #e8c97a;
+  --gold-dark: #a07840;
+  --blush: #f2c4ce;
+  --rose: #e8a0b0;
+  --dusty-rose: #c4758a;
+  --sage: #8aab8a;
+  --sage-light: #b8cdb8;
+  --deep: #2c1a2e;
+  --text-dark: #3a2a1a;
+  --text-mid: #6b4f3a;
+  --text-light: #a08060;
+  --overlay-dark: rgba(30, 15, 20, 0.55);
+
+  --font-script: 'Great Vibes', cursive;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-elegant: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Poppins', sans-serif;
+
+  --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles this */
+  font-size: 16px;
+}
+
+body {
+  background: var(--cream);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  mix-blend-mode: multiply;
+}
+
+.cursor-follower {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s var(--transition-smooth), opacity 0.3s;
+  opacity: 0.6;
+}
+
+body:hover .cursor { opacity: 1; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* =============================================
+   GLOBAL UTILITY
+   ============================================= */
+
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  color: var(--text-dark);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-family: var(--font-elegant);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--text-mid);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 30px 0;
+}
+
+.gold-divider::before,
+.gold-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.gold-divider-icon {
+  color: var(--gold);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Preloader */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--deep);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.preloader-text {
+  font-family: var(--font-script);
+  font-size: 3.5rem;
+  color: var(--champagne);
+  opacity: 0;
+  animation: fadeScript 2s ease forwards 0.5s;
+}
+
+.preloader-bar {
+  width: 200px;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.preloader-bar::after {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: barSlide 2s ease forwards 0.3s;
+}
+
+@keyframes barSlide {
+  to { left: 100%; }
+}
+
+@keyframes fadeScript {
+  0% { opacity: 0; transform: translateY(10px); }
+  50% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-5px); }
+}
+
+/* Music button */
+#music-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  background: rgba(253, 248, 240, 0.85);
+  backdrop-filter: blur(10px);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--gold);
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(201, 169, 110, 0.2);
+}
+
+#music-btn:hover {
+  background: var(--gold);
+  color: var(--cream);
+  transform: scale(1.1);
+}
+
+#music-btn.playing .music-note {
+  animation: musicPulse 1s ease infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2) rotate(10deg); }
+}
+
+/* Nav dots */
+#nav-dots {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  background: transparent;
+  cursor: none;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.nav-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+.nav-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.nav-dot:hover::after { opacity: 1; }
+
+/* Scroll progress */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rose), var(--gold), var(--champagne));
+  z-index: 9999;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  #nav-dots { display: none; }
+  .cursor, .cursor-follower { display: none; }
+  body { cursor: auto; }
+}
